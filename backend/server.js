@@ -8,19 +8,18 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-const API_URL = 'https://api.example.com/data/CORE/QUOTE/SPY'; // Replace with the actual API URL
+const BASE_API_URL = 'https://www.alphavantage.co/query?function=GLOBAL_QUOTE'; // Replace with the actual API URL
 const API_TOKEN = process.env.API_TOKEN;
+const STOCK_SYMBOL = 'IBM'
+const API_URL = `${BASE_API_URL}&symbol=${STOCK_SYMBOL}&apikey=${API_TOKEN}`;
 
 // Function to check if the API is working
 const checkApiStatus = async () => {
     try {
-        const response = await axios.get(API_URL, {
-            headers: {
-                'Authorization': `Bearer ${API_TOKEN}`
-            }
-        });
+        const response = await axios.get(API_URL);
         if (response.status === 200) {
             console.log('API is working properly');
+            console.log(response.data);
         } else {
             console.error(`API check failed with status: ${response.status}`);
         }
@@ -37,11 +36,7 @@ io.on('connection', (socket) => {
 
     const fetchData = async () => {
         try {
-            const response = await axios.get(API_URL, {
-                headers: {
-                    'Authorization': `Bearer ${API_TOKEN}`
-                }
-            });
+            const response = await axios.get(API_URL);
             socket.emit('FromAPI', response.data);
         } catch (error) {
             console.error(`Error: ${error.message}`);
