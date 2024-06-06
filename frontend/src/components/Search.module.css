@@ -1,0 +1,66 @@
+/* src/components/Search.module.css */
+.searchContainer {
+    text-align: center;
+    padding: 50px 20px;
+    width: 45%;
+    align-self: center;
+    margin-left: 25%;
+    padding-top: 40px;
+    
+  }
+  
+  .searchContainer h1 {
+    font-size: 52px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  
+  .searchContainer p {
+    font-size: 18px;
+    color: #AEAEAE;
+    margin-bottom: 30px;
+    width: 65%;
+    margin: auto;
+    padding-top: 40px;
+  }
+  
+  .searchBar {
+    display: flex;
+    position: relative;
+    padding-top: 40px;
+    justify-content: center;
+  }
+  
+  .searchBar input {
+    height: 40px;
+    padding-right: 30px;
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px 5px 5px 5px;
+    padding-left: 48px;
+    color: #AEAEAE;
+  }
+
+
+  .searchIcon {
+    position: absolute;
+    top: 70%;
+    right: 605px;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 32px !important;
+  }
+  
+  .searchBar button {
+    background: #1859FD;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 2px solid #336CFD;
+    font-size: 16px;
+    width: 100px;
+    cursor: pointer;
+  }
+  

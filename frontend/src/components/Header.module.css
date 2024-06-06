@@ -1,0 +1,64 @@
+/* src/components/Header.module.css */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+  }
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+  
+  .logoName {
+    font-size: 24px;
+    color: #3D3D3D;
+    padding-left: 10px;
+    font-weight: 700;
+  }
+  
+  .nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #7F7F7F;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .auth {
+    margin-right: 5%;
+  }
+  
+  .auth button {
+    margin-left: 10px;
+  }
+  
+  .login {
+    background: none;
+    border: 2px solid #F3F3F3;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #717171;
+    font-size: 14px;
+    width: 90px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .signup {
+    background: #1859FD;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 2px solid #336CFD;
+    font-size: 14px;
+    width: 90px;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
