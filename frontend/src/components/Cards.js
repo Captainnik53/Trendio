@@ -9,14 +9,14 @@ const SOCKET_SERVER_URL = 'http://localhost:4000';
 
 let predefinedStockSymbols = []; 
 
-const Card = ({ domain, companyName, price, change, companyDescription, symbol }) => {
+const Card = ({ domain, companyName, price, companyDescription, percentageChange, priceGoneUp }) => {
   return (
     <div className={styles.card}>
       {/* <div className={styles.cardLogo}>{logo}</div> */}
       <img className={styles.cardLogo} src={`https://cdn.brandfetch.io/${domain}`} alt="Company logo" />
       <div className={styles.cardContent}>
         <h2>{companyName}</h2>
-        <p className={styles.price}>{price} <span className={styles.change}>{change}</span></p>
+        <p className={styles.price}>{price} <span className={priceGoneUp ? styles.changeUp : styles.changeDown}> {priceGoneUp ? '▲' : '▼'} {percentageChange}%</span></p>
         <p className={styles.description}>{companyDescription}</p>
       </div>
     </div>
@@ -27,7 +27,7 @@ const Cards = () => {
   const socket = io(SOCKET_SERVER_URL);
   predefinedStockSymbols = ['AAPL', 'GOOGL', 'NVDA', 'MSFT'];
   // const stockData = [
-  //   { logo: '🔴', companyName: 'Amazon (AMZN)', price: '$279.9', change: '🔺10%', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...' },
+  //   { logo: '🔴', companyName: 'Amazon (AMZN)', price: '$279.9', change: '▼ 10%', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...' },
   //   { logo: '🔵', companyName: 'Amazon (AMZN)', price: '$279.9', change: '🔺10%', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...' },
   //   { logo: '🔶', companyName: 'Amazon (AMZN)', price: '$279.9', change: '🔺10%', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...' },
   //   { logo: '⚫', companyName: 'Amazon (AMZN)', price: '$279.9', change: '🔺10%', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...' },
@@ -35,10 +35,10 @@ const Cards = () => {
 
   const [stockData, setStockData] = useState(
     {
-      'AAPL': { domain: '', companyName: '', price: '$279.9', change: '🔺10%', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...', symbol: 'AAPL' },
-      'GOOGL': { domain: '', companyName: '', price: '$279.9', change: '🔺10%', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...', symbol: 'GOOGL' },
-      'NVDA': { domain: '', companyName: '', price: '$279.9', change: '🔺10%', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...', symbol: 'NVDA' },
-      'MSFT': { domain: '', companyName: '', price: '$279.9', change: '🔺10%', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...', symbol: 'MSFT' }
+      'AAPL': { domain: '', companyName: '', price: '$279.9', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...', percentageChange: '', priceGoneUp: true},
+      'GOOGL': { domain: '', companyName: '', price: '$279.9',  companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...', percentageChange: '', priceGoneUp: true},
+      'NVDA': { domain: '', companyName: '', price: '$279.9', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...', percentageChange: '', priceGoneUp: true },
+      'MSFT': { domain: '', companyName: '', price: '$279.9', companyDescription: 'Apple Inc is designs, manufactures and markets mobile communication and media devices...', percentageChange: '', priceGoneUp: true }
     });
   
 
@@ -66,6 +66,8 @@ const Cards = () => {
         updatedData[data.symbol].domain = data.data.domain
         updatedData[data.symbol].companyName = data.data.companyName
         updatedData[data.symbol].companyDescription = data.data.companyDescription
+        updatedData[data.symbol].percentageChange = data.data.percentageChange
+        updatedData[data.symbol].priceGoneUp = data.data.priceGoneUp
         return updatedData
     });
       console.log('stockData', stockData);

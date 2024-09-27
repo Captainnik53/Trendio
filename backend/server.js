@@ -10,7 +10,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
-      origin: "http://localhost:3000", // Allow requests from this origin
+      origin: "http://localhost:3001", // Allow requests from this origin
       methods: ["GET", "POST"],
       credentials: true
     }
@@ -53,6 +53,22 @@ const fetchStockData = async (stockSymbol) => {
         const targetDivText  = $('div.YMlKec.fxKbKc').first().text()
         const companyName = $('div.zzDege').first().text()
         const description = $('div.bLLb2d').first().text().trim();  // Trim any leading/trailing whitespace
+        // rPF6Lc
+        // ln0Gqe
+        // enJeMd
+        // NydbP nZQ6l tnNmPe
+        // zWwE1
+        // JwB6zf 
+        const previousPriceText = $('div.P6K39c').first().text()
+        console.log("previousPriceText  ", previousPriceText)
+
+        const previousPrice = parseFloat(previousPriceText  .replace(/[^\d.-]/g, ''));
+        const currentPrice = parseFloat(targetDivText  .replace(/[^\d.-]/g, ''));
+
+        const percentageChange = Math.abs(((currentPrice - previousPrice) / previousPrice) * 100).toFixed(2);
+
+        console.log("percentageChange", percentageChange)
+
 
         // Find the index of the first occurrence of ". " followed by a capital letter
         const match = description.match(/\.\s+[A-Z]/);
@@ -81,7 +97,7 @@ const fetchStockData = async (stockSymbol) => {
 
         // Remove the 'www.' prefix if it exists
         const domainLink = hostname.replace(/^www\./, '');
-        return {price: targetDivText, domain: domainLink, companyName: companyName, companyDescription: firstLine};
+        return {price: targetDivText, domain: domainLink, companyName: companyName, companyDescription: firstLine, percentageChange: percentageChange, priceGoneUp: currentPrice >= previousPrice};
         // socket.emit('FromAPI', targetDivText);
     } catch (error) {
         console.error(`Error: ${error.message}`);
